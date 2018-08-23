@@ -1,0 +1,20 @@
+{
+  "name": "h4kuna/serialize-polyfill",
+  "description": "Provide methods for serialization and use igbinary if is available.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Milan Matějček",
+      "email": "milan.matejcek@gmail.com"
+    }
+  ],
+  "suggest": {
+    "ext-igbinary": "to use efficient serialization"
+  },
+  "autoload": {
+    "files": [
+      "serialization.php"
+    ]
+  }
+}
