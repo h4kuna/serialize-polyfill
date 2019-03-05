@@ -10,11 +10,16 @@
     }
   ],
   "suggest": {
-    "ext-igbinary": "to use efficient serialization"
+    "ext-igbinary": "to use efficient serialization",
+    "ext-mbstring": "for check errors by igbinary"
   },
   "autoload": {
     "files": [
       "serialization.php"
     ]
+  },
+  "require-dev": {
+    "nette/tester": "^2.1",
+    "tracy/tracy": "^2.6"
   }
 }
