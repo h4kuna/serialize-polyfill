@@ -15,7 +15,8 @@
   },
   "autoload": {
     "files": [
-      "serialization.php"
+      "serialization.php",
+      "src/InvalidStateException.php"
     ]
   },
   "require-dev": {
