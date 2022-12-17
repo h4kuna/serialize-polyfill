@@ -10,17 +10,33 @@
     }
   ],
   "suggest": {
+    "php": ">=7.4",
     "ext-igbinary": "to use efficient serialization",
     "ext-mbstring": "for check errors by igbinary"
   },
   "autoload": {
+    "psr-4": {
+      "h4kuna\\Serialize\\": "src"
+    },
     "files": [
-      "serialization.php",
-      "src/InvalidStateException.php"
+      "setup.php"
     ]
   },
+  "autoload-dev": {
+    "psr-4": {
+      "h4kuna\\Serialize\\Tests\\": "tests/src"
+    }
+  },
   "require-dev": {
-    "nette/tester": "^2.1",
-    "tracy/tracy": "^2.6"
+    "nette/tester": "^2.4",
+    "phpstan/phpstan": "^1.9",
+    "tracy/tracy": "^2.9"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "phpstan": "vendor/bin/phpstan analyse --level max src tests",
+    "tests": "vendor/bin/tester -s -j 4 -C --colors 1 tests/src"
   }
 }

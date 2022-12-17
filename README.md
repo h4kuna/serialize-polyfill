@@ -5,9 +5,7 @@
 
 In your project are available two new methods.
 
- - serialization()
- - deserialization()
+ - h4kuna\Serialize\Serialize::encode()
+ - h4kuna\Serialize\Serialize::decode()
 
-If you enable igbinary, then use igbinary_(un)serialize otherwise (un)serialize.
-
-It is support forward compatibility, if you cache data by old function **serialize()** and these data will be in cache and enable igbinary than function deserialization has mechanism use function **unserialize()**. 
+If you enable igbinary extension, then automatic use Driver\IgBinary. Or you can define own implmentation by Driver interface. 
