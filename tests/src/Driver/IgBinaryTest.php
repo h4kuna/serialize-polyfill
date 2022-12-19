@@ -39,13 +39,7 @@ class IgBinaryTest extends TestCase
 	 */
 	public function dataBasicTypes(): array
 	{
-		return [
-			['value' => ['foo' => 1],],
-			['value' => null],
-			['value' => 0],
-			['value' => 1],
-			['value' => false],
-		];
+		return testValues();
 	}
 
 }
