@@ -54,7 +54,7 @@ final class IgBinary implements Driver
 
 	public static function serializationCheckIgbinary(string $value): bool
 	{
-		return in_array(mb_substr($value, 0, 4), self::$haystack, true);
+		return in_array(substr($value, 0, 4), self::$haystack, true);
 	}
 
 }
