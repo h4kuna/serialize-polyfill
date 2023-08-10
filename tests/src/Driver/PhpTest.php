@@ -6,8 +6,6 @@ use h4kuna\Serialize\Driver;
 use Tester\Assert;
 use Tester\TestCase;
 
-define('SERIALIZATION_FORCE_DISABLE', true);
-
 require_once __DIR__ . '/../../bootstrap.php';
 
 /**
@@ -17,13 +15,12 @@ class PhpTest extends TestCase
 {
 
 	/**
-	 * @throws \h4kuna\Serialize\Exception\InvalidStateException
+	 * @param mixed $value
+	 * @dataProvider dataBasicTypes
 	 */
-	public function testBackCompatibility(): void
+	public function testFallback($value): void
 	{
-		$value = 'foo';
-		$data = Driver\IgBinary::encode($value);
-		Assert::same($value, Driver\Php::decode($data));
+		Assert::same($value, Driver\Php::decode(Driver\IgBinary::encode($value)));
 	}
 
 

@@ -2,7 +2,7 @@
 
 namespace h4kuna\Serialize\Tests\Driver;
 
-use h4kuna\Serialize\Driver\IgBinary;
+use h4kuna\Serialize\Driver;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -13,24 +13,23 @@ require_once __DIR__ . '/../../bootstrap.php';
  */
 class IgBinaryTest extends TestCase
 {
-	/**
-	 * @throws \h4kuna\Serialize\Exception\InvalidStateException
-	 */
-	public function testFailed(): void
-	{
-		$value = 'foo';
-		$data = serialize($value);
-		Assert::same($value, IgBinary::decode($data));
-	}
-
 
 	/**
 	 * @param mixed $value
 	 * @dataProvider dataBasicTypes
 	 */
-	public function testForwardCompatibility($value): void
+	public function testEncodeDecode($value): void
 	{
-		Assert::same($value, IgBinary::decode(IgBinary::encode($value)));
+		Assert::same($value, Driver\IgBinary::decode(Driver\IgBinary::encode($value)));
+	}
+
+	/**
+	 * @param mixed $value
+	 * @dataProvider dataBasicTypes
+	 */
+	public function testFallback($value): void
+	{
+		Assert::same($value, Driver\IgBinary::decode(Driver\Php::encode($value)));
 	}
 
 

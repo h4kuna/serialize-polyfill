@@ -28,6 +28,9 @@ final class Php implements Driver
 				return false;
 			}
 			error_clear_last();
+			if (IgBinary::serializationCheckIgbinary($value) === true) {
+				return IgBinary::decode($value);
+			}
 
 			throw new InvalidStateException($error['message']);
 		}

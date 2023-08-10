@@ -37,9 +37,10 @@ final class IgBinary implements Driver
 		$data = @igbinary_unserialize($value);
 		if ($data === null) {
 			$error = error_get_last();
+			assert($error !== null);
 			error_clear_last();
-			if ($error === null || self::serializationCheckIgbinary($value)) {
-				return null;
+			if (self::serializationCheckIgbinary($value) === false) {
+				return Php::decode($value); // fallback to native serialize
 			}
 
 			throw new InvalidStateException($error['message']);
