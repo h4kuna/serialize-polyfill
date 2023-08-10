@@ -7,6 +7,8 @@ use h4kuna\Serialize\Exception\InvalidStateException;
 
 final class IgBinary implements Driver
 {
+	private const NULL = "\x00";
+
 	/**
 	 * @var array<string>
 	 */
@@ -15,6 +17,9 @@ final class IgBinary implements Driver
 
 	public static function encode($value): string
 	{
+		if ($value === null) {
+			$value = self::NULL;
+		}
 		$result = igbinary_serialize($value);
 		if ($result === null) {
 			$error = error_get_last();
@@ -38,13 +43,15 @@ final class IgBinary implements Driver
 			}
 
 			throw new InvalidStateException($error['message']);
+		} elseif ($data === self::NULL) {
+			return null;
 		}
 
 		return $data;
 	}
 
 
-	private static function serializationCheckIgbinary(string $value): bool
+	public static function serializationCheckIgbinary(string $value): bool
 	{
 		return in_array(mb_substr($value, 0, 4), self::$haystack, true);
 	}
