@@ -2,16 +2,18 @@
 
 namespace h4kuna\Serialize;
 
+use Closure;
+
 final class Serialize implements Driver
 {
 
 	/**
-	 * @var \Closure
+	 * @var Closure
 	 */
 	private static $encode;
 
 	/**
-	 * @var \Closure
+	 * @var Closure
 	 */
 	private static $decode;
 
@@ -19,7 +21,7 @@ final class Serialize implements Driver
 	public static function setUp(Driver $driver): void
 	{
 		self::$encode = static fn ($value) => $driver::encode($value);
-		self::$decode = static fn (string $value, array $options) => $driver::decode($value, $options);
+		self::$decode = static fn (string $value) => $driver::decode($value);
 	}
 
 
@@ -29,9 +31,9 @@ final class Serialize implements Driver
 	}
 
 
-	public static function decode(string $value, array $options = [])
+	public static function decode(string $value)
 	{
-		return (self::$decode)($value, $options);
+		return (self::$decode)($value);
 	}
 
 }

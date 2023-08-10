@@ -11,9 +11,8 @@ interface Driver
 
 
 	/**
-	 * @param array<string, mixed> $options
 	 * @return mixed
 	 */
-	static function decode(string $value, array $options = []);
+	static function decode(string $value);
 
 }

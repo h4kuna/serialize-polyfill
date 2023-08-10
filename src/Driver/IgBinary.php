@@ -27,7 +27,7 @@ final class IgBinary implements Driver
 	}
 
 
-	public static function decode(string $value, array $options = [])
+	public static function decode(string $value)
 	{
 		$data = @igbinary_unserialize($value);
 		if ($data === null) {
