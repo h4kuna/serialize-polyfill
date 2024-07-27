@@ -4,14 +4,15 @@ namespace h4kuna\Serialize\Driver;
 
 use h4kuna\Serialize\Driver;
 use h4kuna\Serialize\Exception\InvalidStateException;
+use Nette\StaticClass;
 
 final class IgBinary implements Driver
 {
+	use StaticClass;
+
 	private const NULL = "\x00";
 
-	/**
-	 * @var array<string>
-	 */
+	/** @var array<string> */
 	private static array $haystack = ["\x00\x00\x00\x01", "\x00\x00\x00\x02"];
 
 

@@ -4,15 +4,11 @@ namespace h4kuna\Serialize;
 
 interface Driver
 {
-	/**
-	 * @param mixed $value
-	 */
+	/** @param mixed $value */
 	static function encode($value): string;
 
 
-	/**
-	 * @return mixed
-	 */
+	/** @return mixed */
 	static function decode(string $value);
 
 }

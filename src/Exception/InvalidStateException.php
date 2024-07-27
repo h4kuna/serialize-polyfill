@@ -2,7 +2,9 @@
 
 namespace h4kuna\Serialize\Exception;
 
-final class InvalidStateException extends \RuntimeException
+use RuntimeException;
+
+final class InvalidStateException extends RuntimeException
 {
 
 }

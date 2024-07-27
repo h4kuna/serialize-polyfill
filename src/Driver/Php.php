@@ -4,12 +4,13 @@ namespace h4kuna\Serialize\Driver;
 
 use h4kuna\Serialize\Driver;
 use h4kuna\Serialize\Exception\InvalidStateException;
+use Nette\StaticClass;
 
 final class Php implements Driver
 {
-	/**
-	 * @var array{allowed_classes?: bool, max_depth?: int}
-	 */
+	use StaticClass;
+
+	/** @var array{allowed_classes?: bool, max_depth?: int} */
 	public static array $options = [];
 
 

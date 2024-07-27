@@ -2,38 +2,40 @@
 
 namespace h4kuna\Serialize;
 
-use Closure;
+use h4kuna\Serialize\Driver\SetUp;
+use h4kuna\Serialize\Exception\InvalidStateException;
+use Nette\StaticClass;
 
 final class Serialize implements Driver
 {
+	use StaticClass;
+
+	/** @var class-string<Driver> */
+	private static string $driver = SetUp::class;
 
 	/**
-	 * @var Closure
+	 * @param class-string<Driver> $driver
 	 */
-	private static $encode;
-
-	/**
-	 * @var Closure
-	 */
-	private static $decode;
-
-
-	public static function setUp(Driver $driver): void
+	public static function setUp(string $driver): void
 	{
-		self::$encode = static fn ($value) => $driver::encode($value);
-		self::$decode = static fn (string $value) => $driver::decode($value);
+		if (self::$driver !== SetUp::class) {
+			if (self::$driver === $driver) {
+				return;
+			}
+			throw new InvalidStateException(sprintf('Driver was already set up "%s" and you want "%s".', self::$driver, $driver));
+		}
+		self::$driver = $driver;
 	}
 
 
 	public static function encode($value): string
 	{
-		return (self::$encode)($value);
+		return (self::$driver)::encode($value);
 	}
 
 
 	public static function decode(string $value)
 	{
-		return (self::$decode)($value);
+		return (self::$driver)::decode($value);
 	}
-
 }

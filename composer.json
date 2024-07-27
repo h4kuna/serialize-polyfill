@@ -17,10 +17,7 @@
   "autoload": {
     "psr-4": {
       "h4kuna\\Serialize\\": "src"
-    },
-    "files": [
-      "setup.php"
-    ]
+    }
   },
   "autoload-dev": {
     "psr-4": {
@@ -38,5 +35,8 @@
   "scripts": {
     "phpstan": "vendor/bin/phpstan analyse --level max src tests",
     "tests": "vendor/bin/tester -s -j 4 -C --colors 1 tests/src"
+  },
+  "require": {
+    "nette/utils": ">= 3.0"
   }
 }
