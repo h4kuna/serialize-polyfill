@@ -12,7 +12,7 @@ final class Base64
 	/** @param mixed $value */
 	public static function encode($value): string
 	{
-		return base64_encode(Serialize::encode($value));
+		return base64_encode(Serialize::encode($value, __CLASS__));
 	}
 
 
@@ -24,7 +24,7 @@ final class Base64
 			throw new InvalidStateException(sprintf('This is not valid base64 string. "%s"', $value));
 		}
 
-		return Serialize::decode($base);
+		return Serialize::decode($base, __CLASS__);
 	}
 
 }

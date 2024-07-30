@@ -9,5 +9,5 @@ use Tester\Assert;
 require_once __DIR__ . '/../bootstrap.php';
 Serialize::setUp(IgBinary::class);
 
-$data = Serialize::encode('foo');
+$data = Serialize::encode('foo', 'h4kuna-serialize-test');
 Assert::same('foo', IgBinary::decode($data));

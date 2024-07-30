@@ -10,7 +10,7 @@ use Tester\Assert;
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$data = Serialize::encode('foo');
+$data = Serialize::encode('foo', 'h4kuna-serialize-test');
 Assert::same('foo', Php::decode($data));
 Serialize::setUp(Php::class); // does not throw exception
 Assert::exception(fn () => Serialize::setUp(IgBinary::class), InvalidStateException::class, 'Driver was already set up "h4kuna\Serialize\Driver\Php" and you want "h4kuna\Serialize\Driver\IgBinary".');
