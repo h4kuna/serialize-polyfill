@@ -27,10 +27,6 @@ final class SetUp implements Driver
 
 	private static function boot(): void
 	{
-		if (extension_loaded('igbinary')) {
-			Serialize::setUp(IgBinary::class);
-		} else {
-			Serialize::setUp(Php::class);
-		}
+		Serialize::setUp(Php::class);
 	}
 }

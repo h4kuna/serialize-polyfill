@@ -10,6 +10,8 @@ final class IgBinary implements Driver
 {
 	use StaticClass;
 
+	private static ?bool $extension = null;
+
 	private const NULL = "\x00";
 
 	/** @var array<string> */
@@ -52,6 +54,10 @@ final class IgBinary implements Driver
 		return $data;
 	}
 
+	public static function isIgbinaryLoaded(): bool
+	{
+		return self::$extension ??= extension_loaded('igbinary');
+	}
 
 	public static function serializationCheckIgbinary(string $value): bool
 	{

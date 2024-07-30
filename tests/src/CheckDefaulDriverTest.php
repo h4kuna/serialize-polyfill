@@ -9,7 +9,6 @@ use h4kuna\Serialize\Serialize;
 use Tester\Assert;
 
 require_once __DIR__ . '/../bootstrap.php';
-Serialize::setUp(Php::class);
 
 $data = Serialize::encode('foo');
 Assert::same('foo', Php::decode($data));
