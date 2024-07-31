@@ -15,18 +15,21 @@ final class SetUp implements Driver
 
 	public static function encode($value): string
 	{
-		self::boot();
-		return Serialize::encode($value);
+		return self::boot()::encode($value);
 	}
 
 	public static function decode(string $value)
 	{
-		self::boot();
-		return Serialize::decode($value);
+		return self::boot()::decode($value);
 	}
 
-	private static function boot(): void
+	/**
+	 * @return class-string<Driver>
+	 */
+	private static function boot(): string
 	{
-		Serialize::setUp(Php::class);
+		$class = Php::class;
+		Serialize::setUp($class);
+		return $class;
 	}
 }
