@@ -3,6 +3,8 @@
 [![Downloads this Month](https://img.shields.io/packagist/dm/h4kuna/serialize-polyfill.svg)](https://packagist.org/packages/h4kuna/serialize-polyfill)
 [![Latest stable](https://img.shields.io/packagist/v/h4kuna/serialize-polyfill.svg)](https://packagist.org/packages/h4kuna/serialize-polyfill)
 
+Part of the [h4kuna PHP libraries](https://github.com/h4kuna/library), see the overview of all packages.
+
 In your project are available two new methods.
 
  - h4kuna\Serialize\Serialize::encode()
