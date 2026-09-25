@@ -15,7 +15,8 @@
   },
   "require-dev": {
     "nette/tester": "^2.4",
-    "phpstan/phpstan": "^1.9",
+    "phpstan/phpstan": "^2.1",
+    "phpstan/phpstan-strict-rules": "^2.0",
     "tracy/tracy": "^2.9"
   },
   "suggest": {
@@ -35,7 +36,12 @@
     "sort-packages": true
   },
   "scripts": {
-    "phpstan": "vendor/bin/phpstan analyse --level max src tests",
-    "tests": "vendor/bin/tester -s -j 4 -C --colors 1 tests/src"
+    "coverage": "vendor/bin/tester --coverage coverage.html --coverage-src src/ --colors 1 -s -C tests/src",
+    "qa": [
+      "@tests",
+      "@stan"
+    ],
+    "stan": "vendor/bin/phpstan analyse",
+    "tests": "vendor/bin/tester --colors 1 -s -C tests/src"
   }
 }

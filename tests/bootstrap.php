@@ -23,4 +23,8 @@ function testValues(): array
 }
 
 
+if (defined('__PHPSTAN_RUNNING__')) {
+	return;
+}
+
 Tester\Environment::setup();

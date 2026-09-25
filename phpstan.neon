@@ -1,0 +1,16 @@
+parameters:
+	level: max
+	paths:
+		- src
+		- tests/src
+	bootstrapFiles:
+		- tests/bootstrap.php
+	ignoreErrors:
+		# public API Base64::decode(string $value, bool $strict = true) supports non-strict decoding
+		-
+			identifier: function.strict
+			path: src/Base64.php
+			count: 1
+
+includes:
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
