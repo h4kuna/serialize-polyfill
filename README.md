@@ -5,15 +5,25 @@
 
 Part of the [h4kuna PHP libraries](https://github.com/h4kuna/library), see the overview of all packages.
 
-In your project are available two new methods.
+Install by composer, requires PHP 8.0 or newer.
 
- - h4kuna\Serialize\Serialize::encode()
- - h4kuna\Serialize\Serialize::decode()
+```bash
+composer require h4kuna/serialize-polyfill
+```
 
-If you enable igbinary extension, then automatic use Driver\IgBinary. Or you can define own implmentation by Driver interface. 
+Two new methods are available in your project.
+
+ - `h4kuna\Serialize\Serialize::encode()`
+ - `h4kuna\Serialize\Serialize::decode()`
+
+By default, native PHP serialization is used (`Driver\Php`). If you have the igbinary extension, you can switch to `Driver\IgBinary` by `Serialize::setUp()`, see [Enable igbinary](#enable-igbinary). Or you can define your own implementation of the `Driver` interface.
+
+The driver can be set up only once and it must be done before the first `encode()` or `decode()` call, otherwise `Driver\Php` is set up automatically and another driver throws `InvalidStateException`.
+
+There is also `h4kuna\Serialize\Base64` with `encode()` and `decode()`, which wraps the serialized string in base64.
 
 ## Example why use Serialize class
-In many use cases is igbinary faster. Anybody use in third party library h4kuna\Serialize\Serialize::encode/decode. If you enable igbinary and for this third party case you want to disable and to use standard serialization. See example. 
+In many use cases igbinary is faster. Imagine a third party library which uses `h4kuna\Serialize\Serialize::encode()/decode()`. You enable igbinary, but for this third party library you want to keep standard serialization. See the example.
 
 External library in vendor
 ```php
@@ -21,19 +31,18 @@ namespace Com\Example;
 
 use h4kuna\Serialize\Serialize;
 
-class Foo implements \Serializable {
-    public function serialize(): ?string {
-        return Serialize::encode($this, __CLASS__);
+class Foo {
+    public function save(array $data): string {
+        return Serialize::encode($data, __CLASS__);
     }
 
-    public function unserialize(string $data): void {
-        Serialize::decode($data, __CLASS__);
-        // do anything
+    public function load(string $data): array {
+        return Serialize::decode($data, __CLASS__);
     }
 }
 ```
 
-Enable standard serialization for class above.
+Enable standard serialization for the class above.
 
 ```php
 use h4kuna\Serialize\Driver;
@@ -41,33 +50,34 @@ use h4kuna\Serialize\Serialize;
 
 require_once __DIR__ . '/vendor/autoload.php';
 Serialize::setUp(Driver\IgBinary::class, [
-    Com\Example\Foo::class => Driver\Php::class // only for Com\Example\Foo use case
-]); 
+    Com\Example\Foo::class => Driver\Php::class, // only for the Com\Example\Foo use case
+]);
 ```
 
 ## Compatibility
 
-You are using php serialize and you want to use igbinary. You can enable igbinaty on fly and old serialized data will be decoded by old php serialize.
+You are using PHP serialize and you want to use igbinary. You can enable igbinary on the fly and the old serialized data will be decoded by PHP unserialize.
 
-> Support compatibility, if you have serialized data by php serialize, then you can decode by IgBinary::decode() and vice versa.
+> If you have data serialized by PHP serialize, you can decode it by `IgBinary::decode()` and vice versa, `Php::decode()` decodes igbinary data if the extension is loaded.
 
 ## Enable igbinary
 
-1. Install igbinary extension
-2. 
+1. Install the igbinary extension.
+2. Set up the driver right after `vendor/autoload.php`.
+
 ```php
 require __DIR__ . '/vendor/autoload.php';
-\h4kuna\Serialize\Serialize::setUp(IgBinary::class);
+\h4kuna\Serialize\Serialize::setUp(\h4kuna\Serialize\Driver\IgBinary::class);
 ```
 
 Works!
 
 ## Disable igbinary
 
-1. set Php driver after vendor/autoload.php 
+1. Remove the setup of the IgBinary driver, `Driver\Php` is used by default.
 ```php
 require __DIR__ . '/vendor/autoload.php';
-// \h4kuna\Serialize\Serialize::setUp(IgBinary::class); remove
+// \h4kuna\Serialize\Serialize::setUp(\h4kuna\Serialize\Driver\IgBinary::class); remove
 ```
-2. wait if your all data will be decoded
-3. uninstall igbinary extension
+2. Wait until all your igbinary data is decoded or expired.
+3. Uninstall the igbinary extension.
