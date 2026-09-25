@@ -1,26 +1,32 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\Serialize\Driver;
 
 use h4kuna\Serialize\Driver;
 use h4kuna\Serialize\Exception\InvalidStateException;
 use Nette\StaticClass;
+use function error_clear_last;
+use function error_get_last;
+use function serialize;
+use function unserialize;
 
 final class Php implements Driver
 {
+
 	use StaticClass;
 
-	/** @var array{allowed_classes?: bool, max_depth?: int} */
+	/**
+	 * @var array{allowed_classes?: bool, max_depth?: int}
+	 */
 	public static array $options = [];
 
 
-	public static function encode($value): string
+	public static function encode(mixed $value): string
 	{
 		return serialize($value);
 	}
 
-
-	public static function decode(string $value)
+	public static function decode(string $value): mixed
 	{
 		$data = @unserialize($value, self::$options);
 		if ($data === false) {

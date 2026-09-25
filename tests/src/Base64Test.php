@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\Serialize\Tests;
 
@@ -16,13 +16,13 @@ final class Base64Test extends TestCase
 
 	/**
 	 * @param mixed $value
+	 *
 	 * @dataProvider dataBasicTypes
 	 */
 	public function testBasic($value): void
 	{
 		Assert::same($value, Base64::decode(Base64::encode($value)));
 	}
-
 
 	/**
 	 * @return array<array<string, mixed>>

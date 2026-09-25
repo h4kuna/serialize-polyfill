@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\Serialize\Tests;
 
@@ -13,4 +13,4 @@ require_once __DIR__ . '/../bootstrap.php';
 $data = Serialize::encode('foo');
 Assert::same('foo', Php::decode($data));
 Serialize::setUp(Php::class); // does not throw exception
-Assert::exception(fn () => Serialize::setUp(IgBinary::class), InvalidStateException::class, 'Driver was already set up "h4kuna\Serialize\Driver\Php" and you want "h4kuna\Serialize\Driver\IgBinary".');
+Assert::exception(static fn () => Serialize::setUp(IgBinary::class), InvalidStateException::class, 'Driver was already set up "h4kuna\Serialize\Driver\Php" and you want "h4kuna\Serialize\Driver\IgBinary".');

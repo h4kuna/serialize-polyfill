@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\Serialize\Driver;
 
@@ -11,14 +11,15 @@ use Nette\StaticClass;
  */
 final class SetUp implements Driver
 {
+
 	use StaticClass;
 
-	public static function encode($value): string
+	public static function encode(mixed $value): string
 	{
 		return self::boot()::encode($value);
 	}
 
-	public static function decode(string $value)
+	public static function decode(string $value): mixed
 	{
 		return self::boot()::decode($value);
 	}
@@ -32,4 +33,5 @@ final class SetUp implements Driver
 		Serialize::setUp($class);
 		return $class;
 	}
+
 }

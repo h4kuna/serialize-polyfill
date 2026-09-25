@@ -1,8 +1,9 @@
-<?php declare(strict_types=1);
+<?php declare(strict_types = 1);
 
 namespace h4kuna\Serialize\Tests\Driver;
 
-use h4kuna\Serialize\Driver;
+use h4kuna\Serialize\Driver\IgBinary;
+use h4kuna\Serialize\Driver\Php;
 use Tester\Assert;
 use Tester\TestCase;
 
@@ -16,23 +17,23 @@ class PhpTest extends TestCase
 
 	/**
 	 * @param mixed $value
+	 *
 	 * @dataProvider dataBasicTypes
 	 */
 	public function testFallback($value): void
 	{
-		Assert::same($value, Driver\Php::decode(Driver\IgBinary::encode($value)));
+		Assert::same($value, Php::decode(IgBinary::encode($value)));
 	}
-
 
 	/**
 	 * @param mixed $value
+	 *
 	 * @dataProvider dataBasicTypes
 	 */
 	public function testForwardCompatibility($value): void
 	{
-		Assert::same($value, Driver\Php::decode(Driver\Php::encode($value)));
+		Assert::same($value, Php::decode(Php::encode($value)));
 	}
-
 
 	/**
 	 * @return array<array<string, mixed>>
