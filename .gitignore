@@ -1,2 +1,6 @@
 composer.lock
-vendor/
+/vendor/
+/var/
+/tests/**/output/
+coverage.html
+coverage.xml
